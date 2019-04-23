@@ -15,7 +15,7 @@ this code implements a very simple version of a bootloader on chip with little d
 * 1-stop bit
 * No-parity bits
 ![github-small](https://i.pinimg.com/originals/f5/38/5e/f5385e0dcb6581abae467c6ffa1395ac.png)
-##Description
+## Description
 this code starts with configuring all clocks for used peripherals then send sentence to ESP **STARTFLASH** which will wait for it after reseting the STM and for blocking section uart will wait on buffer for about **4 secs** to receive **"OK"** to start flashing, otherwise it will jumb to firmware and for flashing it take length of the section that is going to be writen to flash then take data **252 bytes** each multiple of **4** then flashes them to memory **4-bytes by 4-bytes** then sends "OK" indicating successful operation and so on till finishing .bin file then sends **0x00** for data length to jump to **user code (Firmware)**.
 Jump function itself checks if the first byte in which it will jumb contains the SP if not it will not do any thing
 the data received from uart located in Stack which is 20K so the maximum length you can flash at a time is less than 20K also for that you have to change the length bytes to allow that size.
